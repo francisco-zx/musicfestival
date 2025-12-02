@@ -564,13 +564,13 @@ const SignupLabel = styled.label`
 
 const SubscribeButton = styled(motion.button).attrs({})`
   height: 100%;
-  padding: 0 22px;
-  border: none;
+  padding: 16px 24px;
+  border: none !important;
   outline: none;
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: -0.5px;
   color: #111111;
   display: inline-flex;
@@ -579,18 +579,9 @@ const SubscribeButton = styled(motion.button).attrs({})`
   background: #ffffff;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
   position: relative;
-
-  /* left divider to mimic seam */
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: rgba(255, 255, 255, 0.3);
-    mix-blend-mode: screen;
-  }
+  border-radius: 28px;
+  max-width: 520px;
+  margin-top: 42px;
 
   @media (max-width: ${breakpoints.s}) {
     height: 44px;

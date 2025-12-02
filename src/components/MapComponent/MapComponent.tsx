@@ -1,53 +1,20 @@
 import { useEffect, useState } from "react"
-import { toast } from "sonner"
 import { styled } from "styled-components"
 import decoratorLeft from "../../img/maps/left-decorator.svg"
 import mapMobile from "../../img/maps/map-mobile.webp"
 import mapDesktop from "../../img/maps/map-web.webp"
 import decoratorRight from "../../img/maps/right-decorator.svg"
-import { subscribeToNewsletter } from "../../modules/newsletter"
-import { InlineSignup, SignupInput, SubscribeButton } from "../Hero/styles"
+import { SubscribeButton } from "../Hero/styles"
 
 const MapComponent = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
-  const [email, setEmail] = useState("")
-  const [submitting, setSubmitting] = useState(false)
+  const JUMP_IN_URL = "https://decentraland.org/jump/?position=-62%2C-61"
 
   useEffect(() => {
     window.addEventListener("resize", () => {
       setIsMobile(window.innerWidth <= 768)
     })
   }, [])
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const trimmed = email.trim()
-    if (!trimmed) {
-      toast.error("Email is required")
-      return
-    }
-    const emailRegex =
-      /^(?:[a-zA-Z0-9_'^&+-])+(?:\.(?:[a-zA-Z0-9_'^&+-])+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/
-    if (!emailRegex.test(trimmed)) {
-      toast.error("Please enter a valid email", {
-        duration: 10000,
-      })
-      return
-    }
-    try {
-      setSubmitting(true)
-      await subscribeToNewsletter(trimmed)
-      toast.success(
-        "Almost done! Check your inbox to confirm your subscription."
-      )
-      setEmail("")
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Subscription failed"
-      toast.error(message)
-    } finally {
-      setSubmitting(false)
-    }
-  }
 
   return (
     <MapContainer id="map">
@@ -65,19 +32,14 @@ const MapComponent = () => {
       <ContentWrapper>
         <MapImage src={isMobile ? mapMobile : mapDesktop} alt="Map" />
       </ContentWrapper>
-      <InlineSignup onSubmit={handleSubscribe} aria-label="Notify signup (map)">
-        <SignupInput
-          id="map-email-input"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-          required
-          disabled={submitting}
-        />
-        <SubscribeButton type="submit" disabled={submitting}>
-          <span>{submitting ? "Subscribing..." : "SIGN UP NOW"}</span>
-        </SubscribeButton>
-      </InlineSignup>
+      <SubscribeButton
+        as="a"
+        href={JUMP_IN_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>JUMP IN NOW</span>
+      </SubscribeButton>
     </MapContainer>
   )
 }
