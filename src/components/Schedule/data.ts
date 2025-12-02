@@ -1676,7 +1676,8 @@ const scheduleData: DaySchedule = {
       {
         id: 53,
         title: "AFTER-HOURS",
-        subtitle: "Epic 6-hour afterparty at the 4RC Night Club (40,55)",
+        subtitle:
+          "Epic 6-hour afterparty at the 4RC Night Club (40,55) with Crypt0M1notaur, Austin De Chêne & Silvio De Candia.",
         stage: "4RC Night Club",
         startTime: "03:00",
         endTime: "09:00",
